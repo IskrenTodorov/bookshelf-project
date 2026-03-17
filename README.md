@@ -36,3 +36,4 @@ python manage.py createsuperuser
 - PostgreSQL
 - Bootstrap 5
 # bookshelf-project
+# bookshelf-project
