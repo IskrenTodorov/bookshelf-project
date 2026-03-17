@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ author }}{% endblock %}
+{% block content %}
+<h1>{{ author }}</h1>
+{% if author.birth_year %}<p><strong>Роден:</strong> {{ author.birth_year }}</p>{% endif %}
+<p>{{ author.bio }}</p>
+<h3>Книги</h3>
+{% for book in books %}
+  <div class="card mb-2"><div class="card-body">
+    <h5>{{ book.title }}</h5>
+    <a href="{% url 'book-detail' book.pk %}" class="btn btn-sm btn-outline-primary">Детайли</a>
+  </div></div>
+{% empty %}<p>Няма книги.</p>
+{% endfor %}
+<a href="{% url 'author-list' %}" class="btn btn-secondary mt-3">← Назад</a>
+{% endblock %}

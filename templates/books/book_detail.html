@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load book_extras %}
+{% block title %}{{ book.title }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" class="img-fluid rounded">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h1>{{ book.title }}</h1>
+        <p><strong>Автор:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+        <p><strong>Година:</strong> {{ book.published_year }}</p>
+        <p><strong>Жанрове:</strong>
+            {% for genre in book.genres.all %}
+                <a href="{% url 'genre-detail' genre.pk %}" class="badge bg-secondary">{{ genre }}</a>
+            {% endfor %}
+        </p>
+        {% with avg=book.average_rating %}
+            {% if avg %}<p><strong>Средна оценка:</strong> {{ avg }} {{ avg|star_rating }}</p>{% endif %}
+        {% endwith %}
+        <p>{{ book.description }}</p>
+        <a href="{% url 'book-update' book.pk %}" class="btn btn-warning">Редактирай</a>
+        <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Изтрий</a>
+    </div>
+</div>
+
+<hr>
+<h3>Рецензии</h3>
+<a href="{% url 'review-create' book.pk %}" class="btn btn-primary mb-3">Добави рецензия</a>
+{% for review in reviews %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>{{ review.title }}</h5>
+        <p class="text-muted">{{ review.reviewer_name }} — {{ review.rating|star_rating }}</p>
+        <p>{{ review.content }}</p>
+        <a href="{% url 'review-update' review.pk %}" class="btn btn-sm btn-warning">Редактирай</a>
+        <a href="{% url 'review-delete' review.pk %}" class="btn btn-sm btn-danger">Изтрий</a>
+    </div>
+</div>
+{% empty %}
+<p>Все още няма рецензии.</p>
+{% endfor %}
+{% endblock %}

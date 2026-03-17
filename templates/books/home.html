@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Начало — BookShelf{% endblock %}
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded mb-4">
+    <h1>Добре дошли в BookShelf!</h1>
+    <p class="lead">Открий, рецензирай и споделяй книги.</p>
+    <a href="{% url 'book-list' %}" class="btn btn-primary btn-lg">Разгледай книги</a>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3>{{ total_books }}</h3>
+                <p>Книги в базата</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h3>{{ total_authors }}</h3>
+                <p>Автори</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Последно добавени книги</h2>
+<div class="row">
+    {% for book in latest_books %}
+    <div class="col-md-4 mb-3">
+        {% include 'partials/_book_card.html' with book=book %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

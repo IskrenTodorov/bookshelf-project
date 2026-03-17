@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Рецензии{% endblock %}
+{% block content %}
+<h1>Всички рецензии</h1>
+{% for review in reviews %}
+  <div class="card mb-3"><div class="card-body">
+    <h5>{{ review.title }}</h5>
+    <p class="text-muted">Книга: <a href="{% url 'book-detail' review.book.pk %}">{{ review.book }}</a></p>
+    <p>{{ review.reviewer_name }} — {{ review.rating }}/5 ⭐</p>
+    <p>{{ review.content }}</p>
+  </div></div>
+{% empty %}<p>Няма рецензии.</p>
+{% endfor %}
+{% endblock %}

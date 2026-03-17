@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Книги{% endblock %}
+{% block content %}
+<h1>Всички книги</h1>
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-6">{{ form.query }}</div>
+    <div class="col-md-4">{{ form.genre }}</div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Търси</button>
+    </div>
+</form>
+<a href="{% url 'book-create' %}" class="btn btn-success mb-3">+ Добави книга</a>
+<div class="row">
+    {% for book in books %}
+    <div class="col-md-4 mb-3">
+        {% include 'partials/_book_card.html' with book=book %}
+    </div>
+    {% empty %}
+    <p>Няма намерени книги.</p>
+    {% endfor %}
+</div>
+{% endblock %}

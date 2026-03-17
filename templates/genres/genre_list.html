@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Жанрове{% endblock %}
+{% block content %}
+<h1>Жанрове</h1>
+<a href="{% url 'genre-create' %}" class="btn btn-success mb-3">+ Добави жанр</a>
+<div class="row">
+{% for genre in genres %}
+  <div class="col-md-4 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5>{{ genre.name }}</h5>
+        <p>{{ genre.description }}</p>
+        <a href="{% url 'genre-detail' genre.pk %}" class="btn btn-sm btn-outline-primary">Детайли</a>
+        <a href="{% url 'genre-update' genre.pk %}" class="btn btn-sm btn-warning">Редактирай</a>
+        <a href="{% url 'genre-delete' genre.pk %}" class="btn btn-sm btn-danger">Изтрий</a>
+      </div>
+    </div>
+  </div>
+{% empty %}<p>Няма жанрове.</p>
+{% endfor %}
+</div>
+{% endblock %}

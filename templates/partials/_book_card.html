@@ -1,0 +1,19 @@
+{% load book_extras %}
+<div class="card h-100">
+    {% if book.cover_image %}
+        <img src="{{ book.cover_image.url }}" class="card-img-top" style="height:200px;object-fit:cover;">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <p class="card-text text-muted">{{ book.author }}</p>
+        <p class="card-text">{{ book.description|truncate_words_custom:20 }}</p>
+        {% with avg=book.average_rating %}
+            {% if avg %}
+                <p>{% rating_color avg as color %}<span class="{{ color }}">{{ avg|star_rating }}</span></p>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'book-detail' book.pk %}" class="btn btn-sm btn-outline-primary">Детайли</a>
+    </div>
+</div>

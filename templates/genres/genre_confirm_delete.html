@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Изтриване на жанр{% endblock %}
+{% block content %}
+<div class="alert alert-danger">
+  <h3>Изтриване на „{{ genre.name }}"</h3>
+  <p>Сигурен ли си? Това е необратимо!</p>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Да, изтрий</button>
+  <a href="{% url 'genre-list' %}" class="btn btn-secondary">Отказ</a>
+</form>
+{% endblock %}
